@@ -1,0 +1,16 @@
+{
+    "0":{
+      "id":1,
+      "name":"Discount 10% Member Card",
+      "discount_type":"Percentage",
+      "discount":"10",
+      "code":"A1111"
+    },
+    "1":{
+      "id":2,
+      "name":"Discount 10% Member Card",
+      "discount_type":"Percentage",
+      "discount":"10",
+      "code":"Z2222"
+    }
+  }

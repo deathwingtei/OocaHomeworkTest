@@ -1,0 +1,72 @@
+{
+    "0":{
+      "id":1,
+      "name":"Red set",
+      "price":"50",
+      "unit":"set",
+      "currency":"THB",
+      "double_promotion":false,
+      "discount":0,
+      "discount_type":"Percentage"
+    },
+    "1":{
+      "id":2,
+      "name":"Green set",
+      "price":"40",
+      "unit":"set",
+      "currency":"THB",
+      "double_promotion":true,
+      "discount":5,
+      "discount_type":"Percentage"
+    },
+    "2":{
+      "id":3,
+      "name":"Blue set",
+      "price":"30",
+      "unit":"set",
+      "currency":"THB",
+      "double_promotion":false,
+      "discount":0,
+      "discount_type":"Percentage"
+    },
+    "3":{
+      "id":4,
+      "name":"Yellow set",
+      "price":"50",
+      "unit":"set",
+      "currency":"THB",
+      "double_promotion":false,
+      "discount":0,
+      "discount_type":"Percentage"
+    },
+    "4":{
+      "id":5,
+      "name":"Pink set",
+      "price":"80",
+      "unit":"set",
+      "currency":"THB",
+      "double_promotion":true,
+      "discount":5,
+      "discount_type":"Percentage"
+    },
+    "5":{
+      "id":6,
+      "name":"Purple set",
+      "price":"90",
+      "unit":"set",
+      "currency":"THB",
+      "double_promotion":false,
+      "discount":0,
+      "discount_type":"Percentage"
+    },
+    "6":{
+      "id":7,
+      "name":"Orange set",
+      "price":"120",
+      "unit":"set",
+      "currency":"THB",
+      "double_promotion":true,
+      "discount":5,
+      "discount_type":"Percentage"
+    }
+  }

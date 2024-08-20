@@ -1,0 +1,21 @@
+{
+  "name": "ooca_shop_test",
+  "version": "1.0.0",
+  "description": "Test From Ooca",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "nodemon app.js"
+  },
+  "author": "Kittichet Puengreang",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}

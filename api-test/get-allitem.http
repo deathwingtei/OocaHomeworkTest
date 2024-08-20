@@ -1,0 +1,2 @@
+GET  http://localhost:1243/shop/
+Content-Type: application/json

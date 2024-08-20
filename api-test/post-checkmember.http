@@ -1,0 +1,6 @@
+POST  http://localhost:1243/shop/member
+Content-Type: application/json
+
+{
+    "member": "A1111"
+}
