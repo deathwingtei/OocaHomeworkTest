@@ -12,6 +12,8 @@ docker-compose up --build
 2. npm install
 3. npm start
 
+ps. can test unit test with command npm test
+
 ### Second Terminal
 
 1. cd client
@@ -32,3 +34,4 @@ User for 10% discount
 file member in memberCardData.json
 
 if need database mysql, mongodb or member with auth. will update later
+
