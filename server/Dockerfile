@@ -4,7 +4,7 @@
 FROM node:18-alpine
 
 # Set the working directory to an absolute path
-WORKDIR /usr/src/app
+WORKDIR /nodeapp
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
