@@ -62,11 +62,12 @@ export default function Checkout() {
             
             const response = await fetch(apiUrl + "shop/ckeckitemdiscount", {
                 method: "POST",
+                body: JSON.stringify({ cart: cartItems }),
+                cache: 'no-cache',
                 headers: {
+                    "Access-Control-Allow-Origin": "*",
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ cart: cartItems }),
-                cache: 'no-cache', 
                 redirect: 'follow', 
                 referrerPolicy: 'no-referrer',
             });
@@ -96,6 +97,7 @@ export default function Checkout() {
             const response = await fetch(apiUrl + "shop/checkout", {
                 method: "POST",
                 headers: {
+                    "Access-Control-Allow-Origin": "*",
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ member: memberCode, cart: cartItems }),
@@ -130,6 +132,7 @@ export default function Checkout() {
             const response = await fetch(apiUrl + "shop/member", {
                 method: "POST",
                 headers: {
+                    "Access-Control-Allow-Origin": "*",
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ member: member }),

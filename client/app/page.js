@@ -14,7 +14,11 @@ export default function Home() {
     const fetchItem = () => {
         fetch(apiUrl + "shop", {
             method: "GET",
-            cache: 'no-cache', 
+            cache: 'no-cache',
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                'Content-Type': 'application/json',
+            },
             redirect: 'follow', 
             referrerPolicy: 'no-referrer',
         })

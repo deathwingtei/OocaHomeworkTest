@@ -1,23 +1,22 @@
-version: '3.9'
+version: '3.8'
+
 services:
-  backend:
+  server:
     build: ./server
     ports:
       - "1243:1243"
+    environment:
+      - NODE_ENV=production
     volumes:
       - ./server:/usr/src/app
-    networks:
-      - app-network
+    depends_on:
+      - client
 
-  frontend:
+  client:
     build: ./client
     ports:
       - "3421:3421"
+    environment:
+      - NODE_ENV=production
     volumes:
-      - ./frontend:/usr/src/app
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
+      - ./client:/usr/src/app

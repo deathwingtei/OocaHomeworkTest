@@ -4,10 +4,21 @@ const shopRoutes = require("./routes/shop");
 
 const app = express();
 
-// middleware
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader(
+      'Access-Control-Allow-Methods',
+      'OPTIONS, GET, POST, PUT, PATCH, DELETE'
+    );
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+});
+
 app.use(cors({
     origin: true
 }));
+
 app.use(express.urlencoded({extended:true})); //endcode for post data
 app.use(express.json());
 
