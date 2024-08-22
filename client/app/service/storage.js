@@ -1,21 +1,22 @@
-export const setCart = (itemId,count,name,price,currency) => {
+export const setCart = (itemId,count,name,price,currency,unit) => {
     if (typeof window !== "undefined") {
+  
         if (count > 0) {
             let setCart = [];
             let onCart = getCart();
 
             if (onCart) {
-                const existingItem = onCart.find(item => item.itemId === itemId);
+                const existingItem = onCart.find(item => item.id === itemId);
                 
                 if (existingItem) {
-                    existingItem.count += count;
+                    existingItem.quantity += count;
                 } else {
-                    onCart.push({ itemId: itemId, count: count, name: name, price: price, currency: currency });
+                    onCart.push({ id: itemId, quantity: count, name: name, price: price, currency: currency,unit:unit });
                 }
 
                 setCart = onCart;
             } else {
-                setCart.push({ itemId: itemId, count: count, name: name, price: price, currency: currency });
+                setCart.push({ id: itemId, quantity: count, name: name, price: price, currency: currency,unit:unit });
             }
 
             // Save to sessionStorage
@@ -42,6 +43,7 @@ export const getCart=()=>{
             } catch (error) {
                 removeCart();
                 removeMember();
+                window.dispatchEvent(new Event('cartUpdated'));
             }
         }else{
             return false;
@@ -57,6 +59,7 @@ export const getMember=()=>{
             } catch (error) {
                 removeCart();
                 removeMember();
+                window.dispatchEvent(new Event('cartUpdated'));
             }
         }else{
             return false;
@@ -64,15 +67,30 @@ export const getMember=()=>{
     }
 }
 
-export const removeCartItem=()=>{
+export const removeCartItem=(itemId)=>{
     if(window !== undefined){
+        if (itemId) {
+            let onCart = getCart() || []; 
+            if (onCart) {
 
+                const itemIndex = onCart.findIndex(item => item.id === itemId);
+                if (itemIndex !== -1) {
+                    onCart.splice(itemIndex, 1); // Remove the item using the index
+                }
+
+                // Save the updated cart to sessionStorage
+                sessionStorage.setItem("cart", JSON.stringify(onCart));
+                // Dispatch custom event to notify about the cart update
+                window.dispatchEvent(new Event('cartUpdated'));
+            }
+        }
     }
 }
 
 export const removeCart=()=>{
     if(window !== undefined){
         sessionStorage.removeItem("cart");
+        window.dispatchEvent(new Event('cartUpdated'));
     }
 }
 

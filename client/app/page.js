@@ -49,8 +49,8 @@ export default function Home() {
         }));
     };
 
-    const updateCart = (itemId,itemCount,itemName,itemPrice,itemCurrency) =>{
-        setCart(itemId,itemCount,itemName,itemPrice,itemCurrency);
+    const updateCart = (itemId,itemCount,itemName,itemPrice,itemCurrency,itemUnit) =>{
+        setCart(itemId,itemCount,itemName,itemPrice,itemCurrency,itemUnit);
         setItemCounts(prevCounts => ({
             ...prevCounts,
             [itemId]: 0
@@ -71,7 +71,7 @@ export default function Home() {
                             onChange={(e) => handleItemCountChange(item.id, Number(e.target.value))}
                             min="0"
                         />
-                        <button className='' key={item.id} onClick={() => updateCart(item.id, itemCounts[item.id],item.name,item.price,item.currency)}>Add to cart</button>
+                        <button className='' key={item.id} onClick={() => updateCart(item.id, itemCounts[item.id],item.name,item.price,item.currency, item.unit)}>Add to cart</button>
                     </div>
                 ))
             ) : (

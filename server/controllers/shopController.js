@@ -12,21 +12,58 @@ exports.getAllItem = async (req,res)=>{
 }
 
 exports.checkMember = async (req,res)=>{
-    const memberCardNumber = req.body.member;
+  // may be cheack auth for set member discount
+  const memberCardNumber = req.body.member;
+  try {
+      const memberCardJson = await fs.readFile(memberCardData, 'utf8');
+      const memberCards = JSON.parse(memberCardJson);
+      const matchingCard = Object.values(memberCards).find(card => card.code === memberCardNumber);
+      if (matchingCard) {
+          res.status(200).json({ status: 200, data: matchingCard });
+      } else {
+          res.status(404).json({ status: 404, error: 'Member card not found' });
+      }
+  } catch (error) {
+      res.status(500).json({ status: 500, error: error.message });
+  }
+}
+
+exports.checkDoubleItem = async (req,res)=>{
+    const cart = req.body.cart;
+    let haveDoubleDiscount = false;
+    let doubleDiscount = 0;
+    let doubleDiscountType = 'Percentage';
+    if (!cart || cart.length === 0) {
+        return res.status(200).json({
+            status: 200,
+            data: { discount:haveDoubleDiscount, amount:doubleDiscount, type:doubleDiscountType},
+        });
+    }
+
     try {
-        const memberCardJson = await fs.readFile(memberCardData, 'utf8');
-        const memberCards = JSON.parse(memberCardJson);
-        const matchingCard = Object.values(memberCards).find(card => card.code === memberCardNumber);
-        if (matchingCard) {
-            res.status(200).json({ status: 200, data: matchingCard });
-        } else {
-            res.status(404).json({ status: 404, error: 'Member card not found' });
+
+        const itemDataJson = await fs.readFile(itemData, 'utf8');
+        const items = JSON.parse(itemDataJson);
+        for (let key in cart) {
+            const foundItem = Object.values(items).find(
+                (itemList) => itemList.id === cart[key].id
+            );
+            if (cart[key].quantity > 1 && foundItem.double_promotion) {
+                doubleDiscount = foundItem.discount;
+                doubleDiscountType = foundItem.discount_type;
+                haveDoubleDiscount = true;
+                break;
+            }
         }
+        return res.status(200).json({
+            status: 200,
+            data: { discount:haveDoubleDiscount, amount:doubleDiscount, type:doubleDiscountType},
+        });
+    
     } catch (error) {
         res.status(500).json({ status: 500, error: error.message });
     }
 }
-
 
 exports.checkoutCart = async (req, res) => {
   const cart = req.body.cart;
@@ -48,6 +85,7 @@ exports.checkoutCart = async (req, res) => {
     const memberCard = Object.values(memberCards).find(
       (card) => card.code === memberCardCode
     );
+
     if (memberCard) {
       memberDiscount = memberCard.discount;
     }
@@ -64,6 +102,7 @@ exports.checkoutCart = async (req, res) => {
       totalPrice += foundItem.price * cart[key].quantity;
     }
 
+    // must be check discount type percent or thb here if it has other discount type
     if (memberDiscount > 0) {
       totalPrice = totalPrice * (1 - memberDiscount / 100);
     }

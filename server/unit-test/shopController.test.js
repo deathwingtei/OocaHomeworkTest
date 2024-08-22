@@ -29,6 +29,60 @@ describe('Shop Controller Test', () => {
     expect(res.body.error).toBe('Member card not found');
   });
 
+  
+  it('should return 200 with double item discount data when found', async () => {
+    const req = {
+      body: {
+        cart: [
+          { id: 2, quantity: 2 },
+        ],
+      },
+    };
+    const res = await request(app).post('/shop/ckeckitemdiscount').send(req.body);
+    expect(res.status).toBe(200);
+    expect(res.body.status).toBe(200);
+    expect(res.body.data).toEqual({
+      discount: true,
+      amount: 5,
+      type: 'Percentage',
+    });
+  });
+
+  it('should return 200 without double item discount data when not found', async () => {
+    const req = {
+      body: {
+        cart: [
+          { id: 1, quantity: 2 },
+        ],
+      },
+    };
+    const res = await request(app).post('/shop/ckeckitemdiscount').send(req.body);
+    expect(res.status).toBe(200);
+    expect(res.body.status).toBe(200);
+    expect(res.body.data).toEqual({
+      discount: false,
+      amount: 0,
+      type: 'Percentage',
+    });
+  });
+
+  it('should return 200 without double item discount data when cart empty', async () => {
+    const req = {
+      body: {
+        cart: [],
+      },
+    };
+    const res = await request(app).post('/shop/ckeckitemdiscount').send(req.body);
+    expect(res.status).toBe(200);
+    expect(res.body.status).toBe(200);
+    expect(res.body.data).toEqual({
+      discount: false,
+      amount: 0,
+      type: 'Percentage',
+    });
+  });
+
+
   it('should return successful checkout with member card and double promotion', async () => {
     const req = {
       body: {

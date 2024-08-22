@@ -1,0 +1,15 @@
+POST  http://localhost:1243/shop/ckeckitemdiscount
+Content-Type: application/json
+
+{
+    "cart": {
+        "0":{
+            "id": 1,
+            "quantity": 5
+        },
+        "1":{
+            "id": 2,
+            "quantity": 3
+        }
+    }
+}
