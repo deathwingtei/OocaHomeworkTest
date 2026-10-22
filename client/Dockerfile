@@ -1,5 +1,5 @@
-# Use the official Node.js image as a base
-FROM node:18-alpine
+# Use the official Node.js image as a base (v22 LTS with Oct 2026 security patches)
+FROM node:22-alpine
 
 # Set the working directory
 WORKDIR /app
